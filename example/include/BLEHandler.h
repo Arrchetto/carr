@@ -22,6 +22,7 @@ private:
 public:
     static void init();
     static void task();
+    static void BLETask(void *pvParameters);
     static bool isConnected() { return deviceConnected; }
 };
 

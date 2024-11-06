@@ -90,3 +90,12 @@ void BLEHandler::task() {
         }
     }
 }
+
+void BLEHandler::BLETask(void *pvParameters) {
+    BLEHandler::init(); // 初始化BLE
+    while (true) {
+        BLEHandler::task(); // 运行BLE任务
+        vTaskDelay(100 / portTICK_PERIOD_MS); // 延迟100ms
+    }
+}
+

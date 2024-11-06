@@ -5,11 +5,20 @@
 #include "mpu6050.h"
 
 void setup() {
-    BLEHandler::init();
+    
 
     setupWiFi();
     setupOLED();
-    setupMPU6050();
+//    setupMPU6050();
+
+    xTaskCreate(
+        BLEHandler::BLETask, // 任务函数
+        "BLE Task",          // 任务名称
+        4096,                // 任务堆栈大小
+        NULL,                // 任务参数
+        1,                   // 任务优先级
+        NULL                 // 任务句柄
+    );
 
     wifi_timer = xTimerCreate("WiFiTimer", pdMS_TO_TICKS(2000), pdTRUE, (void*)0, checkWiFiConnection);
 
@@ -19,8 +28,6 @@ void setup() {
 void loop() {
 
     server.handleClient();
-
-    BLEHandler::task();
 
     // 检查BLE连接状态的示例
     if (BLEHandler::isConnected()) {
