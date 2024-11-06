@@ -1,8 +1,13 @@
 #pragma once
 #include <U8g2lib.h>
 
-extern U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2;
+class OLED {
+public:
+    OLED();
+    void setup();
+    void displayWarning(const char* message);
+    void updateDisplay(const char* data);
 
-void setupOLED();
-void displayWarning(const char* message);
-void updateOLEDDisplay(String data);
+private:
+    U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2;
+};

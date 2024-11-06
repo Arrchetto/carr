@@ -14,6 +14,8 @@ int BLEHandler::bleFlag = 1;
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 #define CHARACTERISTIC_UUID_TX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 
+extern OLED oled;
+
 // 回调类定义
 class BLEHandler::MyCallbacks : public NimBLECharacteristicCallbacks {
     void onWrite(NimBLECharacteristic *pCharacteristic) {
@@ -21,7 +23,7 @@ class BLEHandler::MyCallbacks : public NimBLECharacteristicCallbacks {
         if (rxValue.length() > 0) {
             Serial.print("收到数据: ");
             Serial.print(rxValue.c_str());
-            updateOLEDDisplay(rxValue.c_str());
+            oled.updateDisplay(rxValue.c_str());
             Serial.println();
 
             if(deviceConnected) {

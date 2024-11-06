@@ -4,11 +4,13 @@
 #include "oled.h"
 #include "mpu6050.h"
 
+OLED oled;
+
 void setup() {
     
 
     setupWiFi();
-    setupOLED();
+    oled.setup();
 //    setupMPU6050();
 
     xTaskCreate(
