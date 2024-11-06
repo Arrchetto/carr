@@ -2,12 +2,14 @@
 #include "BLEHandler.h"
 #include "WiFi_Server.h"
 #include "oled.h"
+#include "mpu6050.h"
 
 void setup() {
     BLEHandler::init();
 
     setupWiFi();
     setupOLED();
+    setupMPU6050();
 
     wifi_timer = xTimerCreate("WiFiTimer", pdMS_TO_TICKS(2000), pdTRUE, (void*)0, checkWiFiConnection);
 
