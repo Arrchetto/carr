@@ -9,6 +9,7 @@ bool WIFI_Connected = false;
 int reConnectCnt = 0;  // WIFI重连次数
 int WIFI_State;        // Declare WIFI_State here
 
+
 enum WiFiState {
     CONNECTED,
     DISCONNECTED,
@@ -24,6 +25,9 @@ WebServer server(80);
 
 void handleRoot();
 
+// 在全局变量区声明外部变量
+extern float distance;
+
 void setupWiFi() {
 
   WiFi.begin(ssid, password);
@@ -31,6 +35,11 @@ void setupWiFi() {
   Serial.println(WiFi.localIP());
 
   server.on("/", handleRoot);
+
+  // 添加新的路由处理
+  server.on("/distance", HTTP_GET, []() {
+      server.send(200, "text/plain", String(distance));
+  });
 
   server.begin();
   Serial.println("HTTP 服务器已启动");

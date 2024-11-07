@@ -16,3 +16,20 @@ void setupMPU6050();
 void calibrateGyro();
 void calculateAngle();
 
+// 获取角度数据
+float getMPUAngleX();
+float getMPUAngleY();
+float getMPUAngleZ();
+
+// 获取角速度数据
+float getMPUGyroX();
+float getMPUGyroY();
+float getMPUGyroZ();
+
+// 获取加速度数据
+float getMPUAccelX();
+float getMPUAccelY();
+float getMPUAccelZ();
+
+void updateMPUData(void *pvParameters);
+

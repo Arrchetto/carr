@@ -8,6 +8,8 @@
 
 #define I2C_SDA 11
 #define I2C_SCL 10
+#define TRIG_PIN 15 
+#define ECHO_PIN 16 
 #define RED_PIN 42
 #define GREEN_PIN 41
 #define BLUE_PIN 40

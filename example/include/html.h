@@ -4,12 +4,35 @@ const char* html = R"rawliteral(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi Server Test</title>
+    <title>距离监测</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #distance {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        function updateDistance() {
+            fetch('/distance')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('distance').innerHTML = 
+                        '当前距离: ' + data + ' cm';
+                });
+        }
+        // 每500ms更新一次数据
+        setInterval(updateDistance, 500);
+    </script>
 </head>
 <body>
-    <h1>WiFi Server Test</h1>
-    <p>这是一个用于测试 WiFi 服务器的简单网页。</p>
+    <h1>距离监测系统</h1>
+    <div id="distance">加载中...</div>
 </body>
 </html>
 )rawliteral";
-
