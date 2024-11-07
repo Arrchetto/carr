@@ -4,6 +4,7 @@
 #include "oled.h"
 #include "mpu6050.h"
 #include "sonic.h"
+#include "led_ctrl.h"
 
 #define wifi_flag 1
 #define ble_flag 0
@@ -18,6 +19,8 @@ OLED oled;
 UltrasonicSensor ultrasonic(TRIG_PIN, ECHO_PIN);
 
 void setup() {
+
+    LEDController::begin();
     
     #if wifi_flag
 
@@ -64,7 +67,7 @@ void setup() {
         NULL                                // 任务句柄
     );
 
-
+    LEDController::setMode(LED_BLUE_BLINK);
     
 }
 

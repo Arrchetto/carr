@@ -35,7 +35,7 @@ void UltrasonicSensor::blink(float dis) {
             unsigned long blinkInterval = 990 * dis * dis / (35 * 35) + 10;
             static unsigned long lastBlinkTime = 0;
             if (millis() - lastBlinkTime >= blinkInterval) {
-                setRed();
+               // setRed();
                 lastBlinkTime = millis();
             }
         } else {

@@ -15,7 +15,7 @@
 #define BLUE_PIN 40
 #define ALPHA 0.96
 #define GYRO_SCALE 0.0174533 // 度到弧度的转换因子 (PI/180)
-#define BLINK_INTERVAL 500 // 闪烁间隔，单位为毫秒
+//#define BLINK_INTERVAL 500 // 闪烁间隔，单位为毫秒
 
 extern const char* ssid ;
 extern const char* password ;
