@@ -101,3 +101,14 @@ void BLEHandler::BLETask(void *pvParameters) {
     }
 }
 
+void BLEHandler::sendData(const std::string& data) {
+    if (deviceConnected) {
+        pTxCharacteristic->setValue(data);
+        pTxCharacteristic->notify();
+        Serial.print("发送数据: ");
+        Serial.println(data.c_str());
+    } else {
+        Serial.println("设备未连接，无法发送数据");
+    }
+}
+

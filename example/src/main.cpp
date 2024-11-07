@@ -8,10 +8,9 @@ OLED oled;
 
 void setup() {
     
-
     setupWiFi();
     oled.setup();
-//    setupMPU6050();
+    setupMPU6050();
 
     xTaskCreate(
         BLEHandler::BLETask, // 任务函数
@@ -25,6 +24,8 @@ void setup() {
     wifi_timer = xTimerCreate("WiFiTimer", pdMS_TO_TICKS(2000), pdTRUE, (void*)0, checkWiFiConnection);
 
     xTimerStart(wifi_timer, 0);
+
+    
 }
 
 void loop() {
