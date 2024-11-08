@@ -10,7 +10,8 @@ enum LEDMode {
     LED_WHITE_SOLID,
     LED_RED_BLINK,
     LED_GREEN_BLINK,
-    LED_BLUE_BLINK
+    LED_BLUE_BLINK,
+    LED_WHITE_BLINK
 };
 
 class LEDController {

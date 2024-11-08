@@ -1,5 +1,6 @@
 #include "BLEHandler.h"
 #include "oled.h"
+#include "led_ctrl.h"
 
 // 静态成员初始化
 NimBLEServer* BLEHandler::pServer = nullptr;
@@ -16,20 +17,110 @@ int BLEHandler::bleFlag = 1;
 
 extern OLED oled;
 
+// 添加指令处理函数
+void BLEHandler::processCommand(const std::string& cmd) {
+    if (cmd.length() < 5 || cmd[0] != '!') return;  // 基本格式检查
+
+    // 提取指令代码
+    std::string code = cmd.substr(1);  // 去掉'!'后的部分
+    
+    // 处理不同的指令
+    //  1
+    if (code == "B11:") {
+
+        LEDController::setMode(LED_RED_BLINK);
+    }
+    else if (code == "B10;") {
+
+        LEDController::setMode(LED_RED_SOLID);
+    }
+    //  2
+    else if (code == "B219") {
+
+        LEDController::setMode(LED_BLUE_BLINK);
+    }
+    else if (code == "B20:") {
+
+        LEDController::setMode(LED_BLUE_SOLID);
+    }
+    //  3
+    else if (code == "B318") {
+
+        LEDController::setMode(LED_GREEN_BLINK);
+    }
+    else if (code == "B309") {
+
+        LEDController::setMode(LED_GREEN_SOLID);
+    }
+    //  4
+    else if (code == "B417") {
+
+        LEDController::setMode(LED_WHITE_BLINK);
+    }
+    else if (code == "B408") {
+
+        LEDController::setMode(LED_WHITE_SOLID);
+//        sendData("LED set to green solid");
+    }
+    //前
+    else if (code == "B516") {
+
+        LEDController::setMode(LED_RED_BLINK);
+    }
+    else if (code == "B507") {
+
+        LEDController::setMode(LED_RED_SOLID);
+    }
+    //后
+    else if (code == "B615") {
+
+        LEDController::setMode(LED_BLUE_BLINK);
+    }
+    else if (code == "B606") {
+
+        LEDController::setMode(LED_BLUE_SOLID);
+    }
+    //左
+    else if (code == "B714") {
+
+        LEDController::setMode(LED_GREEN_BLINK);
+    }
+    else if (code == "B705") {
+
+        LEDController::setMode(LED_GREEN_SOLID);
+    }
+    //右
+    else if (code == "B813") {
+
+        LEDController::setMode(LED_WHITE_BLINK);
+    }
+    else if (code == "B804") {
+
+        LEDController::setMode(LED_WHITE_SOLID);
+//        sendData("LED set to green solid");
+    }
+
+    // ... 可以添加更多指令 ...
+}
+
 // 回调类定义
 class BLEHandler::MyCallbacks : public NimBLECharacteristicCallbacks {
     void onWrite(NimBLECharacteristic *pCharacteristic) {
         std::string rxValue = pCharacteristic->getValue();
         if (rxValue.length() > 0) {
-            Serial.print("收到数据: ");
-            Serial.print(rxValue.c_str());
+            Serial.print("收到指令: ");
+            Serial.println(rxValue.c_str());
+            
+            // 显示在OLED上
             oled.updateDisplay(rxValue.c_str());
-            Serial.println();
 
+            // 处理指令
+            processCommand(rxValue);
+
+            // 如果需要回发原始数据
             if(deviceConnected) {
                 pTxCharacteristic->setValue(rxValue);
                 pTxCharacteristic->notify();
-                Serial.println("数据已回发");
             }
         }
     }

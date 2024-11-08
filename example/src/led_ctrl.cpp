@@ -69,6 +69,11 @@ void LEDController::LEDControlTask(void* pvParameters) {
                 if(ledState) setBlue();
                 else turnOffLights();
                 break;
+            case LED_WHITE_BLINK:
+                ledState = !ledState;
+                if(ledState) setWhite();
+                else turnOffLights();
+                break;
         }
         
         // 使用vTaskDelayUntil确保精确的时间间隔

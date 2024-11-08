@@ -57,7 +57,7 @@ void UltrasonicSensor::getDistanceTask(void *pvParameters) {
             if (current_distance >= 0 && current_distance < 400) {
                 distance = current_distance;  // 更新全局变量
                 sensor->blink(distance);
-                Serial.printf("Distance: %.2f cm\n", distance);
+               // Serial.printf("Distance: %.2f cm\n", distance);
             }
             
         } catch (...) {

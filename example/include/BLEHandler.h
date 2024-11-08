@@ -25,6 +25,7 @@ public:
     static void BLETask(void *pvParameters);
     static bool isConnected() { return deviceConnected; }
     static void sendData(const std::string& data); // 声明发送数据的函数
+    static void processCommand(const std::string& cmd);  // 添加指令处理函数声明
 };
 
 #endif
