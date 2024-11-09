@@ -182,6 +182,16 @@ void BLEHandler::task() {
             oldDeviceConnected = deviceConnected;
         }
     }
+/*
+    if (BLEHandler::isConnected()) {
+        // 发送距离和碰撞信息
+        String status = "Distance:" + String(SystemCheck::getDistance());
+        if (SystemCheck::isCrushDetected()) {
+            status += ",Crush:YES";
+        }
+        BLEHandler::sendData(status.c_str());
+    }
+*/
 }
 
 void BLEHandler::BLETask(void *pvParameters) {
@@ -199,7 +209,7 @@ void BLEHandler::sendData(const std::string& data) {
         //Serial.print("发送数据: ");
         //Serial.println(data.c_str());
     } else {
-        Serial.println("设备未连接，无法发送数据");
+        //Serial.println("设备未连接，无法发送数据");
     }
 }
 
